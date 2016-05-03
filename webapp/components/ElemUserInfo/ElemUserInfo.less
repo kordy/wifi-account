@@ -1,0 +1,32 @@
+@import "../../less/vars.less";
+
+.userWindow{
+  max-width: 500px;
+  margin:0 auto;
+  background: @wf-lighter-peach;
+  border-radius:@wf-border-radius;
+  padding: 20px 25px;
+  input{
+    width:100%;
+  }
+  .btn{
+    width:100%;
+    color:@wf-negative-text-color;
+    background: @wf-blue;
+    border-color: @wf-blue;
+    &:hover{
+      background: @wf-dark-blue;
+      border-color: @wf-dark-blue;
+    }
+  }
+}
+.uwRow{
+  width:100%;
+  margin-bottom:@wf-margin-bottom;
+  &__head{
+    margin-bottom:10px;
+  }
+  &__content{
+    width:100%;
+  }
+}
