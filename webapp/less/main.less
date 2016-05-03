@@ -1,3 +1,8 @@
+@import './vars.less';
+*,html{
+  box-sizing: border-box;
+}
+
 :link, :visited{
   text-decoration: none;
 }
@@ -24,8 +29,6 @@ address{
   font-style: normal;
 }
 
-@import './vars.less';
-
 .clear{
   clear: both;
 }
@@ -41,4 +44,37 @@ a, .a{
   transition: color .2s ease;
 }
 
+.btn{
+  display: inline-block;
+}
 
+input:not([type="checkbox"]):not([type='radio']){
+  max-width:@wf-input-max-width;
+  height: @wf-input-height;
+  color: @wf-blue;
+  border: @wf-input-border;
+  padding: @wf-input-inner-padding;
+  border-radius: @wf-input-border-radius;
+  &:hover{
+    color:@wf-dark-blue;
+  }
+}
+input[type="submit"]{
+  max-width: @wf-input-max-width;
+  height:@wf-input-height;
+  border-radius: @wf-input-border-radius;
+}
+
+button{
+  height: @wf-btn-height;
+  background: none;
+  appearence: none;
+  font-size: @wf-button-font-size;
+  color:@wf-blue;
+  border:@wf-btn-border;
+  border-radius: @wf-btn-border-radius;
+  cursor: pointer;
+  &:hover{
+    color:@wf-dark-blue;
+  }
+}
