@@ -51,10 +51,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev-server": "webpack-dev-server",
+    "dev": "webpack-dev-server",
     "webpack": "webpack",
-    "server": "cd ./srvapp && node server",
-    "dev": "npm-run-all --parallel webpack webpack-dev-server"
+    "server": "cd ./srvapp && node server"
   },
   "repository": {
     "type": "git",

@@ -1,5 +1,6 @@
 import './layout.less';
 import { connect } from 'react-redux';
+import Menu from '../menu/menu';
 
 class Layout extends React.Component {
 
@@ -19,7 +20,12 @@ class Layout extends React.Component {
     if (!this.checkConfig()) return this.showLoader();
     return(
       <div>
+        <div className="wf-left">
+          <Menu />
+        </div>
+        <div className="wf-right">
          {this.props.children}
+        </div>
       </div>
     )
   }

@@ -41,4 +41,25 @@ a, .a{
   transition: color .2s ease;
 }
 
-
+.wf-left{
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:@leftPartSize;
+  background: @color1;
+  color:#fff;
+  overflow:auto;
+}
+.wf-right{
+  margin-left:@leftPartSize;
+  padding:20px;
+}
+.wf-menu{
+  &__link{
+    color: @textColor1;
+    display:block;
+    border-bottom: 1px solid @textColor1;
+    padding:10px 20px;
+  }
+}

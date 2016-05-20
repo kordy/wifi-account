@@ -9,6 +9,7 @@ class MainPage extends React.Component {
   }
 
   render() {
+    console.log('herre');
     return(
       <div>MainPage</div>
     )
