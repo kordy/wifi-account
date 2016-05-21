@@ -2,13 +2,12 @@ import React from 'react';
 import {Route, IndexRoute} from 'react-router';
 
 import Layout from './components/layout/layout.jsx';
-import MainPage from './components/mainPage/mainPage';
-import PersonalInfo from './components/personalInfo/personalInfo';
-import Finance from './components/finance/finance';
-import Settings from './components/settings/settings';
-import Statistic from './components/statistic/statistic';
-
-import Registration from './components/registration/registration.js';
+import MainPage from './pages/mainPage/mainPage';
+import PersonalInfo from './pages/personalInfoPage/personalInfoPage';
+import Finance from './pages/financePage/financePage';
+import Settings from './pages/settingsPage/settingsPage';
+import Statistic from './pages/statisticPage/statisticPage';
+import Registration from './pages/registrationPage/registrationPage.js';
 
 
 const mainRoute = {

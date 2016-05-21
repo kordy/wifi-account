@@ -19,7 +19,13 @@ class Menu extends React.Component {
           LeftMenu.map((item) => {
             return (
               <div className="wf-menu__item">
-                <Link className="wf-menu__link" to={ item.path }>{ item.name }</Link>
+                <Link
+                  className="wf-menu__link"
+                  activeClassName="wf-menu__link--active"
+                  to={ item.path }
+                >
+                  { item.name }
+                </Link>
               </div>
             )
           })

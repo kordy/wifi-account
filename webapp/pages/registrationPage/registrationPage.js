@@ -1,4 +1,4 @@
-import Form from '../form/form.jsx';
+import Form from '../../components/form/form.jsx';
 import { connect } from 'react-redux';
 
 

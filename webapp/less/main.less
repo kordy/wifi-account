@@ -41,25 +41,80 @@ a, .a{
   transition: color .2s ease;
 }
 
-.wf-left{
-  position:absolute;
+.wf-top-pane{
+  background: @paneColor;
+  height: @topPaneHeight;
+  color: @lightTextColor;
+  box-sizing: border-box;
+  border-bottom: 3px solid @color1;
+  overflow: hidden;
+  font-weight: 300;
+  &__left{
+    padding:0 20px;
+    box-sizing: border-box;
+    width:@leftPartSize;
+    float:left;
+  }
+  &__right{
+    margin-left:@leftPartSize;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:0 20px;
+    height: @topPaneHeight - 3;
+    box-sizing: border-box;
+  }
+}
+.wf-logo{
+  font-size: 1.8em;
+  font-weight: 300;
+  line-height: @topPaneHeight - 3;
+  color:@lightTextColor;
+  &__span{
+    color: @color1;
+  }
+}
+.wf-wrapper{
+  position: absolute;
+  top: @topPaneHeight;
   left:0;
-  top:0;
+  right:0;
   bottom:0;
-  width:@leftPartSize;
-  background: @color1;
-  color:#fff;
-  overflow:auto;
+  overflow:hidden;
+}
+.wf-left{
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: @leftPartSize;
+  background: @leftMenuColor;
+  color: #fff;
+  overflow: auto;
+  border-right:@leftMenuBorder;
 }
 .wf-right{
-  margin-left:@leftPartSize;
-  padding:20px;
+  margin-left: @leftPartSize;
+  padding: 12px 20px;
 }
 .wf-menu{
   &__link{
-    color: @textColor1;
-    display:block;
-    border-bottom: 1px solid @textColor1;
-    padding:10px 20px;
+    color: @textColor;
+    display: block;
+    //border-bottom: 1px solid @lightTextColor;
+
+    border-bottom: 1px solid @leftMenuBorder;
+    padding: 12px 20px;
+    transition: .2s background ease, .2s color ease;
+    &:hover{
+      background: @leftMenuColorHover;
+    }
+    &--active{
+      background: @color1;
+      color: @lightTextColor;
+      &:hover{
+        background: @color1;
+      }
+    }
   }
 }
