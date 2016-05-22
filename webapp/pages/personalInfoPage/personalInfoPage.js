@@ -1,3 +1,5 @@
+import Api from '../../services/api'
+
 class PersonalInfo extends React.Component {
 
   constructor(props) {
@@ -5,7 +7,7 @@ class PersonalInfo extends React.Component {
   }
 
   componentDidMount() {
-
+    Api.get('/account');
   }
 
   render() {

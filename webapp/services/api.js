@@ -1,13 +1,12 @@
 import Request from 'superagent';
 import Promise from 'bluebird';
 
-const API_URL = 'http://localhost:3031/api';
+const API_URL = 'http://wifi.denwer/api';
 
 const makeRequest = (attrs) => {
   const {type, url, params} = attrs;
 
   return new Promise((resolve, reject) => {
-    console.log(API_URL);
     let requestUrl = API_URL + url;
     let request;
     switch (type) {

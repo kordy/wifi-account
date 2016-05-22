@@ -41,6 +41,19 @@ a, .a{
   transition: color .2s ease;
 }
 
+.wf-layout{
+  &--login{
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
 .wf-top-pane{
   background: @paneColor;
   height: @topPaneHeight;
@@ -70,6 +83,12 @@ a, .a{
   font-weight: 300;
   line-height: @topPaneHeight - 3;
   color:@lightTextColor;
+  margin-bottom:0.3em;
+  &--login{
+    font-size: 2.8em;
+    text-align:center;
+    color:@textColor;
+  }
   &__span{
     color: @color1;
   }
@@ -115,6 +134,75 @@ a, .a{
       &:hover{
         background: @color1;
       }
+    }
+  }
+}
+
+.wf-login-form{
+  margin: auto;
+  width: 300px;
+  position: relative;
+  top: -30px;
+}
+.form{
+  &__row{
+    margin-bottom:15px;
+  }
+  &__field{
+    font-family: @mainFontFamily;
+    width:100%;
+    box-sizing:border-box;
+    border:none;
+    border-bottom:1px solid #cccccc;
+    height:30px;
+    font-size:1.2em;
+    outline:none;
+    transition: .2s border-color ease;
+    .form__row--error &{
+      border-bottom-color: @errorColor;
+    }
+  }
+  &__field::-webkit-input-placeholder{
+    font-weight:300;
+  }
+
+  &__submit-row{
+    margin-top: 1.5em;
+  }
+  &__error{
+    font-size:0.7em;
+    color:@errorColor;
+    position:absolute;
+  }
+}
+
+.wf-btn{
+  font-size:1.2em;
+  font-family: @mainFontFamily;
+  background: @color1;
+  color: @lightTextColor;
+  width:100%;
+  border:none;
+  border-radius:3px;
+  height:38px;
+  line-height:36px;
+  transition: .2s background ease, .2s color ease;
+  cursor: pointer;
+  outline:none;
+  &:hover{
+    background: darken(@color1, 3);
+  }
+  &:active{
+    background: darken(@color1, 20);
+  }
+  &--disabled {
+    background: @disabled;
+    cursor: default;
+    &:hover{
+      background: @disabled;
+    }
+    &:active{
+      background: @disabled;
     }
   }
 }

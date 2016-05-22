@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {reduxForm} from 'redux-form';
 import ReduxForm from './reduxForm';
-import classModifiers from '../../services/functions';
+import Functions from '../../services/functions';
 import classnames from 'classnames';
 
 const validate = (values, data) => {
@@ -37,7 +37,7 @@ class Form extends Component {
 			fieldView;
 
 		fieldAttrs.key = i; //TODO Здесь вроде не правильно, нужен уникальный ключ, а здесь итератор, может бажить. исправлю.
-		fieldAttrs.className = classModifiers('form__field', [field.type, field.className]);
+		fieldAttrs.className = Functions.classModifiers('form__field', [field.type, field.classModifiers]);
 
 		switch (field.type) {
 			case 'textarea':
@@ -46,6 +46,7 @@ class Form extends Component {
 			case 'select':
 				fieldView = this.showSelect(field, fieldAttrs);
 				break;
+
 			default:
 				fieldAttrs.type = field.type;
 				fieldView = this.showInput(field, fieldAttrs);
@@ -60,7 +61,7 @@ class Form extends Component {
 		return (
       <div className={ rowClasses }>
 				{fieldView}
-        {currentField.touched && currentField.error && <div>{currentField.error}</div>}
+        {currentField.touched && currentField.error && <div className="form__error">{currentField.error}</div>}
       </div>
 		);
 	}
@@ -98,6 +99,8 @@ class Form extends Component {
 			resetForm,
 			valid
 			} = this.props;
+		console.log(valid);
+		const buttonText = this.props.buttonText || 'Отправить';
 		return (
 			<form
         className='form'
@@ -108,11 +111,18 @@ class Form extends Component {
 						return this.showField(item, i);
 					})
 				}
-				<div>
-					<button disabled = {!valid} onClick={handleSubmit}>Submit</button>
-					<button onClick={resetForm}>Clear Values</button>
+				<div className='form__submit-row'>
+					<button
+							disabled = {!valid}
+							onClick={handleSubmit}
+							className={Functions.classModifiers('wf-btn', !valid ? 'disabled' : '')}
+					>
+						{ buttonText }
+					</button>
+					{ /* <button onClick={resetForm}>Clear Values</button> */ }
 				</div>
 			</form>
+
 		);
 	}
 }

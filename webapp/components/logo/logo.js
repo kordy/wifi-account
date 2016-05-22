@@ -1,3 +1,5 @@
+import Functions from '../../services/functions'
+
 class Logo extends React.Component {
 
   constructor(props) {
@@ -10,7 +12,7 @@ class Logo extends React.Component {
 
   render() {
     return (
-      <div className="wf-logo">
+      <div className={Functions.classModifiers('wf-logo', this.props.classModifiers)}>
         <span className="wf-logo__span">Wi</span>Face
       </div>
     );

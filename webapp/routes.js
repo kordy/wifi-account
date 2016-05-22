@@ -1,5 +1,6 @@
 import React from 'react';
 import {Route, IndexRoute} from 'react-router';
+import LayoutConstants from './constants/layoutConstants/layoutConstants';
 
 import Layout from './components/layout/layout.jsx';
 import MainPage from './pages/mainPage/mainPage';
@@ -8,11 +9,19 @@ import Finance from './pages/financePage/financePage';
 import Settings from './pages/settingsPage/settingsPage';
 import Statistic from './pages/statisticPage/statisticPage';
 import Registration from './pages/registrationPage/registrationPage.js';
-
+import LoginPage from './pages/loginPage/loginPage';
 
 const mainRoute = {
   component: MainPage,
   isIndex: true
+};
+
+const LoginPageRoute = {
+  component: LoginPage,
+  path: 'login',
+  pageClassModifiers: 'login',
+  layout: LayoutConstants.LAYOUT_EMPTY,
+  name: 'Войти'
 };
 
 const personalInfoRoute = {
@@ -48,6 +57,7 @@ const leftMenu = [
 
 const mainRoutes = [
   mainRoute,
+  LoginPageRoute,
   personalInfoRoute,
   financeRoute,
   settingsRoute,
@@ -62,16 +72,16 @@ const routesTree = [
   }
 ];
 
-
 const showRoutes = (routes) => {
   if (!routes) return null;
   return routes.map((route, i) => {
     const Component = route.isIndex ? IndexRoute : Route;
     return (
-      <Component key={ i } path={ route.path } component={ route.component }>
+      <Component key={ i } path={ route.path } component={ route.component } params={route}>
         { showRoutes(route.children) }
       </Component>
     )
+
 
 
 
