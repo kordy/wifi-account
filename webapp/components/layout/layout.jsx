@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 
 import Menu from '../menu/menu';
 import TopPane from '../topPane/topPane';
-
-import Functions from '../../services/functions';
-
-import LayoutConstants from '../../constants/layoutConstants/layoutConstants';
+import Loader from '../loader/loader';
+import Functions from '../../services/utils';
+import AccountActions from '../../actions/accountActions';
+import RouterActions from '../../actions/routerActions';
+import LoaderActions from '../../actions/loaderActions';
+import LayoutConstants from '../../constants/layoutConstants';
 
 class Layout extends React.Component {
 
@@ -14,17 +16,31 @@ class Layout extends React.Component {
     super(props);
   }
 
-  showLoader = () => {
-    return <div>Loading...</div>
-  };
-
-  checkConfig = () => {
-    return true;
+  componentDidMount() {
+    const currentRoute = this.props.routes[this.props.routes.length - 1];
+    LoaderActions.show();
+    AccountActions.check()
+      .then(() => {
+        AccountActions.fetchAccount();
+      })
+      .catch(() => {
+          if (!currentRoute.params.noAuth) {
+            AccountActions.logout();
+          } else {
+            AccountActions.logout(true);
+          }
+      })
+      .finally(() => {
+        setTimeout(() => {
+          AccountActions.setChecked();
+          LoaderActions.hide();
+        }, 500);
+      })
   };
 
   showEmptyLayout = (currentRoute) => {
     return(
-      <div className={Functions.classModifiers('wf-layout', currentRoute.params.pageClassModifiers)}>
+      <div className={Functions.classModify('wf-layout', currentRoute.params.pageClassModifiers)}>
         {this.props.children}
       </div>
     )
@@ -32,7 +48,7 @@ class Layout extends React.Component {
 
   showLeftMenuLayout = (currentRoute) => {
     return(
-      <div className={Functions.classModifiers('wf-layout', currentRoute.params.pageClassModifiers)}>
+      <div className={Functions.classModify('wf-layout', currentRoute.params.pageClassModifiers)}>
         <TopPane />
         <div className="wf-wrapper">
           <div className="wf-left">
@@ -56,9 +72,21 @@ class Layout extends React.Component {
     }
   };
 
+
   render() {
-    if (!this.checkConfig()) return this.showLoader();
-    return this.showLayout();
+    return (
+      <div className="wf-page">
+        { this.props.account.checked && this.showLayout() }
+        <Loader />
+      </div>
+    );
   }
 }
-export default connect()(Layout);
+
+function props(state) {
+  return {
+    account: state.account
+  };
+}
+
+export default connect(props)(Layout);

@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {reduxForm} from 'redux-form';
 import ReduxForm from './reduxForm';
-import Functions from '../../services/functions';
+import Functions from '../../services/utils';
 import classnames from 'classnames';
 
 const validate = (values, data) => {
@@ -37,7 +37,7 @@ class Form extends Component {
 			fieldView;
 
 		fieldAttrs.key = i; //TODO Здесь вроде не правильно, нужен уникальный ключ, а здесь итератор, может бажить. исправлю.
-		fieldAttrs.className = Functions.classModifiers('form__field', [field.type, field.classModifiers]);
+		fieldAttrs.className = Functions.classModify('form__field', [field.type, field.classModifiers]);
 
 		switch (field.type) {
 			case 'textarea':
@@ -99,7 +99,6 @@ class Form extends Component {
 			resetForm,
 			valid
 			} = this.props;
-		console.log(valid);
 		const buttonText = this.props.buttonText || 'Отправить';
 		return (
 			<form
@@ -114,8 +113,8 @@ class Form extends Component {
 				<div className='form__submit-row'>
 					<button
 							disabled = {!valid}
-							onClick={handleSubmit}
-							className={Functions.classModifiers('wf-btn', !valid ? 'disabled' : '')}
+							type="submit"
+							className={Functions.classModify('wf-btn', !valid ? 'disabled' : '')}
 					>
 						{ buttonText }
 					</button>

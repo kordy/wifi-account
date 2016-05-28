@@ -1,6 +1,8 @@
 import Form from '../../components/form/form.jsx';
 import Logo from '../../components/logo/logo';
 import Api from '../../services/api';
+import Cache from '../../services/cache';
+import AccountActions from '../../actions/accountActions';
 import { connect } from 'react-redux';
 
 
@@ -39,22 +41,9 @@ class LoginPage extends React.Component {
 
   }
 
-
-
   onSubmit(values) {
-    return Api.post('/authorize', {data: values});
-    //return new Promise((resolve, reject) => {
-    //  setTimeout(() => {
-    //    if (![ 'john', 'paul', 'george', 'ringo' ].includes(values.login)) {
-    //      reject({ login: 'User does not exist' })
-    //    } else if (values.password !== 'redux-form') {
-    //      reject({ password: 'Wrong password' })
-    //    } else {
-    //      dispatch(showResults(values));
-    //      resolve()
-    //    }
-    //  }, 1000); // simulate server latency
-    //})
+    console.log(values);
+    return AccountActions.login(values);
   }
 
   get fields() {
@@ -63,10 +52,6 @@ class LoginPage extends React.Component {
       fields.push(field.name);
     });
     return fields;
-
-
-
-
   }
 
   render() {

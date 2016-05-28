@@ -7,7 +7,14 @@ class PersonalInfo extends React.Component {
   }
 
   componentDidMount() {
-    Api.get('/account');
+    console.log('herre');
+    Api.get('/account')
+      .then((res) => {
+
+      })
+      .catch((err) => {
+
+      });
   }
 
   render() {

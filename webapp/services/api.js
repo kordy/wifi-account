@@ -1,10 +1,12 @@
 import Request from 'superagent';
+import AccountActions from '../actions/accountActions';
 import Promise from 'bluebird';
+import Cache from '../services/cache';
 
 const API_URL = 'http://wifi.denwer/api';
 
 const makeRequest = (attrs) => {
-  const {type, url, params} = attrs;
+  const {type, url, params, options} = attrs;
 
   return new Promise((resolve, reject) => {
     let requestUrl = API_URL + url;
@@ -16,6 +18,9 @@ const makeRequest = (attrs) => {
       case 'PUT':
         request = Request.put(requestUrl);
         break;
+      case 'HEAD':
+        request = Request.head(requestUrl);
+        break;
       case 'DELETE':
         request = Request.del(requestUrl);
         break;
@@ -24,24 +29,10 @@ const makeRequest = (attrs) => {
         break;
     }
 
-    //var token = $.cookie('token');
-    //
-    //if (token) {
-    //  //if (data) data.token = token;
-    //  //else data = {token: token}
-    //}
-    //
-    //var options = {
-    //  url: getBasePath() + url,
-    //  type: type,
-    //  data: data,
-    //  xhrFields: {
-    //    withCredentials: true
-    //  },
-    //  beforeSend: function(xhr, data) {
-    //    xhr.setRequestHeader('X-Access-Token', token);
-    //  }
-    //};
+    var token = Cache.get('token');
+    if (token) {
+      request.set('Authorization', 'Bearer ' + token);
+    }
 
     if (params) {
       if (type === 'GET') {
@@ -50,10 +41,14 @@ const makeRequest = (attrs) => {
         request.send(params);
       }
     }
+    console.log(options);
 
     request
       .end((err, res) => {
         if (err) {
+          if (!(options && options.noLogout) && res.statusCode === 401) {
+            AccountActions.logout();
+          }
           reject(err);
         } else {
           let responseBody = res.body;
@@ -69,6 +64,14 @@ const Api = {
       type: 'GET',
       url: url,
       params: params
+    });
+  },
+
+  head: (url, options) => {
+    return makeRequest({
+      type: 'HEAD',
+      url: url,
+      options: options
     });
   },
 

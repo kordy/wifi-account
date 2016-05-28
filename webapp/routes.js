@@ -1,6 +1,6 @@
 import React from 'react';
 import {Route, IndexRoute} from 'react-router';
-import LayoutConstants from './constants/layoutConstants/layoutConstants';
+import LayoutConstants from './constants/layoutConstants';
 
 import Layout from './components/layout/layout.jsx';
 import MainPage from './pages/mainPage/mainPage';
@@ -20,6 +20,7 @@ const LoginPageRoute = {
   component: LoginPage,
   path: 'login',
   pageClassModifiers: 'login',
+  noAuth: true,
   layout: LayoutConstants.LAYOUT_EMPTY,
   name: 'Войти'
 };

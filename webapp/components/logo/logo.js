@@ -1,4 +1,4 @@
-import Functions from '../../services/functions'
+import Utils from '../../services/utils'
 
 class Logo extends React.Component {
 
@@ -12,7 +12,7 @@ class Logo extends React.Component {
 
   render() {
     return (
-      <div className={Functions.classModifiers('wf-logo', this.props.classModifiers)}>
+      <div className={Utils.classModify('wf-logo', this.props.classModifiers)}>
         <span className="wf-logo__span">Wi</span>Face
       </div>
     );
