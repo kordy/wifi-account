@@ -12,7 +12,6 @@ class Menu extends React.Component {
   }
 
   render() {
-    console.log(LeftMenu);
     return (
       <div className="wf-menu">
         {

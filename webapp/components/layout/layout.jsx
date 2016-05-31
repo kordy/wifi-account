@@ -2,6 +2,7 @@ import './layout.less';
 import { connect } from 'react-redux';
 
 import Menu from '../menu/menu';
+import Cache from '../../services/cache';
 import TopPane from '../topPane/topPane';
 import Loader from '../loader/loader';
 import Functions from '../../services/utils';
@@ -38,6 +39,14 @@ class Layout extends React.Component {
       })
   };
 
+  componentWillReceiveProps(nextProps) {
+    const currentRoute = this.props.routes[this.props.routes.length - 1];
+    const nextRoute = nextProps.routes[nextProps.routes.length - 1];
+    if (currentRoute.path != nextRoute.path && !Cache.get('token')) {
+      AccountActions.logout();
+    }
+  }
+
   showEmptyLayout = (currentRoute) => {
     return(
       <div className={Functions.classModify('wf-layout', currentRoute.params.pageClassModifiers)}>
@@ -49,7 +58,7 @@ class Layout extends React.Component {
   showLeftMenuLayout = (currentRoute) => {
     return(
       <div className={Functions.classModify('wf-layout', currentRoute.params.pageClassModifiers)}>
-        <TopPane />
+        <TopPane account={ this.props.account }/>
         <div className="wf-wrapper">
           <div className="wf-left">
             <Menu />

@@ -7,10 +7,19 @@ function loaderShow() {
   });
 }
 
-function loaderHide() {
+function _loaderHide() {
   dispatch({
     type: LoaderConstants.LOADER_HIDE
   });
+}
+
+function loaderHide(delay) {
+  delay = Number(delay);
+  if (delay) {
+    setTimeout(_loaderHide, delay);
+  } else {
+    _loaderHide();
+  }
 }
 
 export default {

@@ -42,7 +42,6 @@ class LoginPage extends React.Component {
   }
 
   onSubmit(values) {
-    console.log(values);
     return AccountActions.login(values);
   }
 

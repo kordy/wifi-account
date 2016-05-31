@@ -3,7 +3,7 @@ import AccountActions from '../actions/accountActions';
 import Promise from 'bluebird';
 import Cache from '../services/cache';
 
-const API_URL = 'http://wifi.denwer/api';
+const API_URL = 'http://82.146.56.118:8083//api';
 
 const makeRequest = (attrs) => {
   const {type, url, params, options} = attrs;
@@ -38,6 +38,7 @@ const makeRequest = (attrs) => {
       if (type === 'GET') {
         request.query(params);
       } else {
+        request.send(params);
         request.send(params);
       }
     }

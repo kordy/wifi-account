@@ -7,8 +7,20 @@ import Promise from 'bluebird';
 import {dispatch} from '../store/store';
 
 const logout = (noRedirect = false) => {
-  if (Cache.get('token')) Cache.remove('token');
-  if (!noRedirect && RouterActions.path() !== '/login') RouterActions.go('/login');
+  if (Cache.get('token')) {
+    LoaderActions.show();
+    Api.head('/logout', {noLogout: true})
+      .finally(() => {
+        Cache.remove('token');
+        LoaderActions.hide(100);
+        if (!noRedirect && RouterActions.path() !== '/login') {
+          RouterActions.go('/login');
+        }
+      });
+  } else
+  if (!noRedirect && RouterActions.path() !== '/login') {
+    RouterActions.go('/login');
+  }
 };
 
 const checkSuccess = () => {
@@ -69,6 +81,7 @@ const login = (values) => {
         checkSuccess();
         Cache.set('token', response.token);
         RouterActions.go('/');
+        fetchAccount();
         resolve();
       } else {
         reject({ password: 'Неверный пользователь или пароль' })
@@ -82,15 +95,20 @@ const login = (values) => {
   });
 };
 
-const check = (values) => {
+const check = () => {
   return new Promise((resolve, reject) => {
-    Api.head('/checkSession', {noLogout: true}).then((response) => {
-      resolve();
-      checkSuccess();
-    }).catch((response) => {
+    if (!Cache.get('token')) {
       reject();
       checkFail();
-    });
+    } else {
+      Api.head('/checkSession', {noLogout: true}).then((response) => {
+        resolve();
+        checkSuccess();
+      }).catch((response) => {
+        reject();
+        checkFail();
+      });
+    }
   });
 };
 
